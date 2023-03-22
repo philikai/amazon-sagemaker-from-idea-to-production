@@ -147,3 +147,9 @@ samconfig.*
 *snapshot.json
 .test*
 *.zip
+config.json
+data/bank-additional/.Rhistory
+data/__MACOSX/._bank-additional
+additional-topics/Exploration.ipynb
+additional-topics/coding_part.ipynb
+additional-topics/HyperParameter_Tuning_Models.ipynb
