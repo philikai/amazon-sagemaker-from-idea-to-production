@@ -38,7 +38,7 @@ if __name__=="__main__":
     poutcomeMapping = {"failure":0,"nonexistent":-999,"success":1}
     contactMapping = {'telephone':0, 'cellular':1}
 
-    df = df.copy()
+    df = df_data.copy()
     df['y'] = df['y'].map(targetMapping)
     df['education'] = df['education'].map(educationMapping)
     df['day_of_week'] = df['day_of_week'].map(dayMapping)
@@ -49,13 +49,18 @@ if __name__=="__main__":
     df['poutcome'] = df['poutcome'].map(poutcomeMapping)
     df['contact'] = df['contact'].map(contactMapping)
     df.drop('duration', axis = 1, inplace = True)
-
+    
+    # Reordering the columns 
+    cols = df.columns.tolist()
+    cols = cols[target_col] + [col for col in cols if col not in [target_col] ]
+    df = df[cols] 
+    print(df.cols)
     # Shuffle and splitting dataset
     train_data, validation_data, test_data = np.split(
         df.sample(frac=1, random_state=1729),
         [int(0.7 * len(df)), int(0.9 * len(df))],
     )
-
+    
     print(f"Data split > train:{train_data.shape} | validation:{validation_data.shape} | test:{test_data.shape}")
     
     # Save datasets locally
@@ -65,6 +70,6 @@ if __name__=="__main__":
     test_data.drop([target_col], axis=1).to_csv(os.path.join(args.outputpath, 'test/test_x.csv'), index=False, header=False)
     
     # Save the baseline dataset for model monitoring
-    df_model_data.drop([target_col], axis=1).to_csv(os.path.join(args.outputpath, 'baseline/baseline.csv'), index=False, header=False)
+    df.drop([target_col], axis=1).to_csv(os.path.join(args.outputpath, 'baseline/baseline.csv'), index=False, header=False)
     
     print("## Processing complete. Exiting.")
