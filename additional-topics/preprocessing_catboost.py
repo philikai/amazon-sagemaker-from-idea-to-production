@@ -21,10 +21,10 @@ if __name__=="__main__":
     args, _ = _parse_args()
     
     target_col = "y"
-
-    # Load data and check the file type 
-    df_data = pd.read_csv(os.path.join(args.filepath, args.filename), sep=";")
     
+    # Load data
+    df_data = pd.read_csv(os.path.join(args.filepath, args.filename), sep=";")
+
     # starting with the variables that have order and we want to map
     targetMapping = {'no':0, 'yes':1}
     educationMapping = {'illiterate':0, 'basic.4y':1, 'basic.6y':1, 'basic.9y':2,
@@ -38,7 +38,7 @@ if __name__=="__main__":
     poutcomeMapping = {"failure":0,"nonexistent":-999,"success":1}
     contactMapping = {'telephone':0, 'cellular':1}
 
-    df = df_data.copy()
+    df = df.copy()
     df['y'] = df['y'].map(targetMapping)
     df['education'] = df['education'].map(educationMapping)
     df['day_of_week'] = df['day_of_week'].map(dayMapping)
