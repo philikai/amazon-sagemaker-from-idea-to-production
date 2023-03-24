@@ -50,11 +50,10 @@ if __name__=="__main__":
     df['contact'] = df['contact'].map(contactMapping)
     df.drop('duration', axis = 1, inplace = True)
     
-    # Reordering the columns 
+    # reordering the columns 
     cols = df.columns.tolist()
-    cols = cols[target_col] + [col for col in cols if col not in [target_col] ]
+    cols = [target_col] + [col for col in cols if col not in [target_col] ]
     df = df[cols] 
-    print(df.cols)
     # Shuffle and splitting dataset
     train_data, validation_data, test_data = np.split(
         df.sample(frac=1, random_state=1729),
