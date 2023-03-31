@@ -30,6 +30,10 @@ if __name__=="__main__":
     educationMapping = {'illiterate':0, 'basic.4y':1, 'basic.6y':1, 'basic.9y':2,
                         'high.school':3,'professional.course':4, 'university.degree':5,
                         'unknown':-999}
+    jobMapping = {'unemployed':0, 'student':1, 'housemaid':1, 'services':2,
+                        'blue-collar':3,'technician':3, 'retired':3, 'self-employed':4,'management':5,  'entrepreneur':6,
+                        'unknown':-999}
+    maritalMapping = {'single':0, 'married':1, 'divorced':2,'unknown':-999}
     dayMapping = {'mon':1, 'tue':2, 'wed':3, 'thu':4, 'fri':5}
     monthMapping = {'jan': 1, 'feb': 2, 'mar':3, 'apr':4, 'may':5, 'jun':6, 'jul':7, 'aug':8, 'sep':9, 'oct':10, 'nov':11, 'dec':12}
     defaultMapping = {"no":0,"yes":1,"unknown":-999}
@@ -48,7 +52,10 @@ if __name__=="__main__":
     df['loan'] = df['loan'].map(loanMapping)
     df['poutcome'] = df['poutcome'].map(poutcomeMapping)
     df['contact'] = df['contact'].map(contactMapping)
+    df['job'] = df['job'].map(jobMapping)
+    df['marital'] = df['marital'].map(maritalMapping)
     df.drop('duration', axis = 1, inplace = True)
+    df=df.fillna(-999)
     
     # reordering the columns 
     cols = df.columns.tolist()
